@@ -4,7 +4,7 @@ import "time"
 
 const IssuesURL = "https://api.github.com/search/issues"
 
-const MyRepoIssuesURL = "https://api.github.com/repos/tsetsoo/programming-pearls/issues"
+const MyRepoIssuesURL = "https://api.github.com/repos/tsetsoo/go-programming-language/issues"
 
 type IssuesSearchResults struct {
 	TotalCount int `json:"total_count"`
@@ -12,16 +12,16 @@ type IssuesSearchResults struct {
 }
 
 type Issue struct {
-	Number    int
-	HTMLURL   string `json:"html_url"`
-	Title     string
-	State     string
-	User      *User
+	Number    int       `json:"issue_number"`
+	HTMLURL   string    `json:"html_url"`
+	Title     string    `json:"title"`
+	State     string    `json:"state"`
+	User      *User     `json:"user"`
 	CreatedAt time.Time `json:"created_at"`
-	Body      string
+	Body      string    `json:"body"`
 }
 
 type User struct {
-	Login   string
+	Login   string `json:"login"`
 	HTMLURL string `json:"html_url"`
 }
