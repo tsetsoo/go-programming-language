@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"tsvetelinpantev.com/go-programming-language/ch4/github"
+	"tsvetelinpantev.com/go-programming-language/ch4/omdbapi"
 )
 
 func searchTask() {
@@ -47,7 +48,7 @@ func searchTask() {
 	}
 }
 
-func main() {
+func main_github() {
 	input := bufio.NewScanner(os.Stdin)
 	input.Split(bufio.ScanLines)
 	fmt.Println("What do you want to do? (read/create/update/close)")
@@ -158,3 +159,20 @@ func main() {
 
 // 	fmt.Println("ratio:", float32(boolRes.AllocedBytesPerOp())/float32(structRes.AllocedBytesPerOp()))
 // }
+
+func main() {
+	input := bufio.NewScanner(os.Stdin)
+	input.Split(bufio.ScanLines)
+	fmt.Println("Download movie poster by title")
+	for input.Scan() {
+		posterUrl, err := omdbapi.FindPosterUrl(input.Text())
+		if err != nil {
+			log.Fatal(err)
+		}
+		err = omdbapi.DownloadFile("poster.jpg", posterUrl)
+		if err != nil {
+			log.Fatal(err)
+		}
+		break
+	}
+}
