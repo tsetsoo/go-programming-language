@@ -19,9 +19,16 @@ type Issue struct {
 	User      *User     `json:"user"`
 	CreatedAt time.Time `json:"created_at"`
 	Body      string    `json:"body"`
+	Milestone Milestone `json:"milestone"`
 }
 
 type User struct {
 	Login   string `json:"login"`
 	HTMLURL string `json:"html_url"`
+}
+
+type Milestone struct {
+	HTMLURL string `json:"html_url"`
+	Number  int    `json:"number"`
+	Title   string `json:"title"`
 }

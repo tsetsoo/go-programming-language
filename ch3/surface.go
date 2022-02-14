@@ -32,15 +32,15 @@ func main() {
 	fmt.Println("</svg>")
 }
 
-func corner(i, j int) (float64, float64) {
+func corner(i, j int) (sx float64, sy float64) {
 	x := xyrange * (float64(i)/cells - 0.5)
 	y := xyrange * (float64(j)/cells - 0.5)
 
 	z := f(x, y)
 
-	sx := width/2 + (x-y)*cos30*xyscale
-	sy := height/2 + (x+y)*sin30*xyscale - z*zscale
-	return sx, sy
+	sx = width/2 + (x-y)*cos30*xyscale
+	sy = height/2 + (x+y)*sin30*xyscale - z*zscale
+	return
 }
 
 func noInfinities(numbers []float64) bool {
