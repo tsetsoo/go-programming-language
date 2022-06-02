@@ -26,21 +26,25 @@ func outline(url string) error {
 		return err
 	}
 
-	depth := 0
+	goClosure := func() (func(n *html.Node), func(n *html.Node)) {
+		depth := 0
 
-	startElement := func(n *html.Node) {
-		if n.Type == html.ElementNode {
-			fmt.Printf("%*s<%s>\n", depth*2, "", n.Data)
-			depth++
+		startElement := func(n *html.Node) {
+			if n.Type == html.ElementNode {
+				fmt.Printf("%*s<%s>\n", depth*2, "", n.Data)
+				depth++
+			}
 		}
-	}
 
-	endElement := func(n *html.Node) {
-		if n.Type == html.ElementNode {
-			depth--
-			fmt.Printf("%*s</%s>\n", depth*2, "", n.Data)
+		endElement := func(n *html.Node) {
+			if n.Type == html.ElementNode {
+				depth--
+				fmt.Printf("%*s</%s>\n", depth*2, "", n.Data)
+			}
 		}
+		return startElement, endElement
 	}
+	startElement, endElement := goClosure()
 
 	//!+call
 	forEachNode(doc, startElement, endElement)
